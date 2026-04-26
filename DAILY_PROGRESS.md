@@ -138,6 +138,12 @@ None yet
 - Added notification lookup by profile ID.
 - Wired the new routers into each FastAPI service.
 - Added startup table creation for the current SQLAlchemy models.
+- Ran the full Docker Compose stack locally.
+- Added a PostgreSQL healthcheck to `docker-compose.yml`.
+- Updated service dependencies so FastAPI services wait for PostgreSQL to be healthy.
+- Confirmed all containers start successfully.
+- Tested health endpoints through Nginx.
+- Tested starter database-backed endpoints through Nginx.
 
 ### Issues worked on
 - #3 Set up FastAPI service foundations
@@ -145,6 +151,8 @@ None yet
 ### Branches / PRs updated
 - Branch: `feature/service-foundations`
 - Draft PR: #4
+- Commit: `227192e feat(api): add starter service endpoints`
+- Commit: `b7111b7 fix(compose): wait for postgres health before services`
 
 ### Services touched
 - Identity & Profile Service
@@ -166,11 +174,21 @@ None yet
 ### Testing / CI completed
 - Confirmed Python files compile.
 - Confirmed Docker Compose config is valid.
+- Confirmed `docker compose up --build -d` starts the stack locally.
+- Tested Nginx health routes:
+  - `GET /health/identity`
+  - `GET /health/sessions`
+  - `GET /health/notifications`
+- Tested starter endpoints:
+  - `GET /api/v1/profiles`
+  - `POST /api/v1/sessions`
+  - `GET /api/v1/sessions`
+  - `POST /api/v1/notifications`
+  - `GET /api/v1/notifications`
+  - `GET /api/v1/notifications/profile/1`
 
 ### Blockers
-- Docker Compose startup still needs to be tested.
+- None
 
 ### Next step
-- Run Docker Compose.
-- Test service health endpoints through Nginx.
-- Test the starter database-backed endpoints.
+- Review PR #4 and decide if any final Sprint 1 cleanup is needed before marking it ready for review.
