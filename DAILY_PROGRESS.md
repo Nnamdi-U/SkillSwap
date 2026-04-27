@@ -144,6 +144,8 @@ None yet
 - Confirmed all containers start successfully.
 - Tested health endpoints through Nginx.
 - Tested starter database-backed endpoints through Nginx.
+- Added `.dockerignore` files for each service.
+- Removed the tracked `.DS_Store` file.
 
 ### Issues worked on
 - #3 Set up FastAPI service foundations
@@ -153,6 +155,7 @@ None yet
 - Draft PR: #4
 - Commit: `227192e feat(api): add starter service endpoints`
 - Commit: `b7111b7 fix(compose): wait for postgres health before services`
+- Commit: `4aca1e1 chore(repo): clean service build contexts`
 
 ### Services touched
 - Identity & Profile Service
@@ -175,6 +178,8 @@ None yet
 - Confirmed Python files compile.
 - Confirmed Docker Compose config is valid.
 - Confirmed `docker compose up --build -d` starts the stack locally.
+- Re-ran final Docker Compose startup and endpoint checks after cleanup.
+
 - Tested Nginx health routes:
   - `GET /health/identity`
   - `GET /health/sessions`
@@ -191,4 +196,4 @@ None yet
 - None
 
 ### Next step
-- Review PR #4 and decide if any final Sprint 1 cleanup is needed before marking it ready for review.
+- Mark PR #4 ready for review if no final feedback is needed.
