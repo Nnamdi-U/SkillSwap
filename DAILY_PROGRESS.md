@@ -197,3 +197,62 @@ None yet
 
 ### Next step
 - Mark PR #4 ready for review if no final feedback is needed.
+
+## Date: 2026-04-29
+
+### Goal for today
+- Start Sprint 2 authentication work.
+- Add the first Identity service auth foundation.
+
+### What I completed
+- Created Issue #5 for Identity auth foundation work.
+- Created branch `feature/identity-auth-foundation` from `feature/service-foundations`.
+- Added password hashing and JWT dependencies.
+- Added JWT settings for secret, algorithm, and access token expiration.
+- Added password hashing helpers.
+- Added JWT create/decode helpers.
+- Added auth schemas for register, login, token response, and current user response.
+- Added register endpoint.
+- Added login endpoint.
+- Added current user endpoint using bearer token auth.
+- Fixed missing email validation dependency.
+- Pinned bcrypt for passlib compatibility.
+- Pushed the Sprint 2 auth branch.
+
+### Issues worked on
+- #5 Add Identity auth foundation
+
+### Branches / PRs updated
+- Branch: `feature/identity-auth-foundation`
+- Commits:
+  - `1df9b53 feat(auth): add identity auth helpers`
+  - `f5f84a4 feat(auth): add register login and current user routes`
+  - `e911308 fix(auth): add email validation dependency`
+  - `39c8002 fix(auth): pin bcrypt for password hashing`
+
+### Services touched
+- Identity & Profile Service
+
+### Endpoints completed
+- `POST /api/v1/auth/register`
+- `POST /api/v1/auth/login`
+- `GET /api/v1/auth/me`
+
+### Gateway / auth / integration completed
+- Added JWT access token creation.
+- Added password hashing and verification.
+- Verified auth endpoints through Nginx.
+
+### Testing / CI completed
+- Confirmed Python files compile.
+- Confirmed Docker Compose stack builds and starts locally.
+- Tested `POST /api/v1/auth/register`.
+- Tested `POST /api/v1/auth/login`.
+- Tested `GET /api/v1/auth/me` with bearer token.
+
+### Blockers
+- None
+
+### Next step
+- Open Draft PR for Issue #5.
+- Continue Sprint 2 with refresh token and TOTP MFA work.
