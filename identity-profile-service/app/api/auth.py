@@ -4,7 +4,7 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
-from app.core.security import create_access_token, decode_access_token, hash_password, verify_password
+from app.core.security import create_access_token, create_refresh_token, decode_access_token, hash_password, verify_password
 from app.db.session import get_db
 from app.models.user import User
 from app.schemas.auth import CurrentUserResponse, TokenResponse, UserLogin, UserRegister
@@ -44,7 +44,8 @@ def login_user(login_data: UserLogin, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="User is inactive")
 
     access_token = create_access_token(subject=str(user.id), role=user.role)
-    return TokenResponse(access_token=access_token)
+    refresh_token = create_refresh_token(subject=str(user.id), role=user.role)
+    return TokenResponse(access_token=access_token, refresh_token=refresh_token)
 
 
 @router.get("/me", response_model=CurrentUserResponse)
