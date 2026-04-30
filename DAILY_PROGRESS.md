@@ -256,3 +256,48 @@ None yet
 ### Next step
 - Open Draft PR for Issue #5.
 - Continue Sprint 2 with refresh token and TOTP MFA work.
+
+## Date: 2026-04-30
+
+### Goal for today
+- Start the refresh token flow for Sprint 2.
+- Make login return both access and refresh tokens.
+
+### What I completed
+- Created Issue #7 for refresh token flow.
+- Created branch `feature/refresh-token-flow` from `feature/identity-auth-foundation`.
+- Added refresh token expiration setting.
+- Added refresh token creation helper.
+- Added token type field to JWT payloads.
+- Updated login response schema to include a refresh token.
+- Updated login endpoint to return both access and refresh tokens.
+- Pushed the refresh token branch.
+- Opened Draft PR for refresh token work.
+
+### Issues worked on
+- #7 Add refresh token flow
+
+### Branches / PRs updated
+- Branch: `feature/refresh-token-flow`
+- Commit: `733cb8f feat(auth): issue refresh token on login`
+
+### Services touched
+- Identity & Profile Service
+
+### Endpoints completed
+- Updated `POST /api/v1/auth/login`
+
+### Gateway / auth / integration completed
+- Login now returns both access and refresh tokens.
+- Refresh endpoint is not implemented yet.
+
+### Testing / CI completed
+- Confirmed Python files compile.
+
+### Blockers
+- None
+
+### Next step
+- Add refresh request schema.
+- Add `POST /api/v1/auth/refresh`.
+- Test login and refresh flow through Nginx.
