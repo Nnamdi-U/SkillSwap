@@ -271,8 +271,14 @@ None yet
 - Added token type field to JWT payloads.
 - Updated login response schema to include a refresh token.
 - Updated login endpoint to return both access and refresh tokens.
+- Added refresh token request schema.
+- Added access token response schema.
+- Added `POST /api/v1/auth/refresh`.
+- Added refresh token validation.
+- Confirmed the refresh endpoint rejects access tokens.
 - Pushed the refresh token branch.
 - Opened Draft PR for refresh token work.
+- Pushed the completed refresh endpoint work.
 
 ### Issues worked on
 - #7 Add refresh token flow
@@ -280,24 +286,28 @@ None yet
 ### Branches / PRs updated
 - Branch: `feature/refresh-token-flow`
 - Commit: `733cb8f feat(auth): issue refresh token on login`
+- Commit: `6cd2426 feat(auth): add refresh token endpoint`
 
 ### Services touched
 - Identity & Profile Service
 
 ### Endpoints completed
 - Updated `POST /api/v1/auth/login`
+- `POST /api/v1/auth/refresh`
 
 ### Gateway / auth / integration completed
 - Login now returns both access and refresh tokens.
-- Refresh endpoint is not implemented yet.
+- Refresh endpoint validates refresh tokens and returns a new access token.
+- Refresh endpoint rejects non-refresh tokens.
 
 ### Testing / CI completed
 - Confirmed Python files compile.
+- Confirmed Docker Compose stack builds and starts locally.
+- Tested `POST /api/v1/auth/refresh` with a valid refresh token.
+- Tested `POST /api/v1/auth/refresh` rejects an access token.
 
 ### Blockers
 - None
 
 ### Next step
-- Add refresh request schema.
-- Add `POST /api/v1/auth/refresh`.
-- Test login and refresh flow through Nginx.
+- Continue Sprint 2 with TOTP MFA setup and verification.
