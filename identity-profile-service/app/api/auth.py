@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from app.core.security import create_access_token, create_refresh_token, decode_access_token, hash_password, verify_password
 from app.db.session import get_db
 from app.models.user import User
-from app.schemas.auth import CurrentUserResponse, TokenResponse, UserLogin, UserRegister
+from app.schemas.auth import AccessTokenResponse, CurrentUserResponse, RefreshTokenRequest, TokenResponse, UserLogin, UserRegister
 
 router = APIRouter(prefix="/api/v1/auth", tags=["auth"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
@@ -46,6 +46,24 @@ def login_user(login_data: UserLogin, db: Session = Depends(get_db)):
     access_token = create_access_token(subject=str(user.id), role=user.role)
     refresh_token = create_refresh_token(subject=str(user.id), role=user.role)
     return TokenResponse(access_token=access_token, refresh_token=refresh_token)
+
+
+@router.post("/refresh", response_model=AccessTokenResponse)
+def refresh_access_token(refresh_data: RefreshTokenRequest, db: Session = Depends(get_db)):
+    try:
+        payload = decode_access_token(refresh_data.refresh_token)
+        if payload.get("type") != "refresh":
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token")
+        user_id = int(payload["sub"])
+    except (jwt.PyJWTError, KeyError, ValueError):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token")
+
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user or not user.is_active:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
+
+    access_token = create_access_token(subject=str(user.id), role=user.role)
+    return AccessTokenResponse(access_token=access_token)
 
 
 @router.get("/me", response_model=CurrentUserResponse)
