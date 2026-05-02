@@ -35,3 +35,16 @@ class CurrentUserResponse(BaseModel):
     role: str
     is_active: bool
     totp_enabled: bool
+
+
+class MfaSetupResponse(BaseModel):
+    totp_secret: str
+    provisioning_uri: str
+
+
+class MfaVerifyRequest(BaseModel):
+    code: str
+
+
+class MfaStatusResponse(BaseModel):
+    totp_enabled: bool

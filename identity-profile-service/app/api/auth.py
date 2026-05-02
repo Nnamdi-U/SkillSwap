@@ -66,10 +66,11 @@ def refresh_access_token(refresh_data: RefreshTokenRequest, db: Session = Depend
     return AccessTokenResponse(access_token=access_token)
 
 
-@router.get("/me", response_model=CurrentUserResponse)
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     try:
         payload = decode_access_token(token)
+        if payload.get("type") != "access":
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
         user_id = int(payload["sub"])
     except (jwt.PyJWTError, KeyError, ValueError):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
@@ -78,3 +79,8 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     if not user or not user.is_active:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
     return user
+
+
+@router.get("/me", response_model=CurrentUserResponse)
+def read_current_user(current_user: User = Depends(get_current_user)):
+    return current_user
