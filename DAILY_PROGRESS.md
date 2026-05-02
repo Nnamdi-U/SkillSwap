@@ -311,3 +311,18 @@ None yet
 
 ### Next step
 - Continue Sprint 2 with TOTP MFA setup and verification.
+
+## Date: 2026-05-01
+### Goal for today
+- Add the first MFA flow for the Identity & Profile Service.
+
+### Work completed
+- Created the `feature/totp-mfa` branch for Issue #9.
+- Added TOTP MFA setup and verification endpoints.
+- Added `pyotp` as the TOTP dependency.
+- Added MFA request and response schemas.
+- Reused bearer token auth to protect the MFA routes.
+- Updated `/auth/me` auth handling so refresh tokens are not accepted as access tokens.
+- Tested the MFA flow through Nginx with register, login, setup, invalid verify, valid verify, and `/auth/me`.
+- Pushed the branch and opened a draft PR.
+
