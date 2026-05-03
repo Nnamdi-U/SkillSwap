@@ -351,8 +351,17 @@ None yet
 - Added generated or preserved `X-Request-ID` values on service requests.
 - Returned `X-Request-ID` in service response headers.
 - Added structured request logs with request ID, method, path, status code, and duration.
-- Left Nginx request ID forwarding and full Nginx testing for the next work session.
+- Updated Nginx to forward `X-Request-ID` to upstream services.
+- Tested generated request IDs through Nginx for all three services.
+- Tested a custom `X-Request-ID` through Nginx and confirmed it was preserved.
+- Checked service logs to confirm request ID, method, path, status code, and duration are included.
+- Pushed the completed request ID logging branch.
 
 ### Sprint 3 checks completed
 - Confirmed Python files compile.
 - Confirmed Docker Compose config is valid.
+- Confirmed Docker Compose stack builds and starts locally.
+- Tested request ID behavior through Nginx.
+
+### Next step
+- Continue Sprint 3 with the next service-to-service workflow issue.
