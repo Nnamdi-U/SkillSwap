@@ -340,7 +340,19 @@ None yet
 - Updated the user MFA status so `totp_enabled` becomes false.
 - Tested the full MFA lifecycle through Nginx with register, login, setup, verify, invalid disable, valid disable, second disable, and `/auth/me`.
 - Pushed the branch and opened a draft PR.
-- Shut down Docker Compose after testing.
 
 ### Notes
 - Issue #11 completes the Sprint 2 MFA lifecycle work.
+
+### Sprint 3 work started
+- Created Issue #14 for request IDs and structured logging.
+- Created the `feature/request-id-logging` branch from `feature/mfa-disable`.
+- Added request ID middleware to all three FastAPI services.
+- Added generated or preserved `X-Request-ID` values on service requests.
+- Returned `X-Request-ID` in service response headers.
+- Added structured request logs with request ID, method, path, status code, and duration.
+- Left Nginx request ID forwarding and full Nginx testing for the next work session.
+
+### Sprint 3 checks completed
+- Confirmed Python files compile.
+- Confirmed Docker Compose config is valid.
