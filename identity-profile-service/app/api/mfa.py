@@ -45,3 +45,23 @@ def verify_mfa(
     db.commit()
     db.refresh(current_user)
     return MfaStatusResponse(totp_enabled=current_user.totp_enabled)
+
+
+@router.post("/disable", response_model=MfaStatusResponse)
+def disable_mfa(
+    verify_data: MfaVerifyRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if not current_user.totp_enabled or not current_user.totp_secret:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="MFA is not enabled")
+
+    is_valid_code = pyotp.TOTP(current_user.totp_secret).verify(verify_data.code)
+    if not is_valid_code:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid MFA code")
+
+    current_user.totp_enabled = False
+    current_user.totp_secret = None
+    db.commit()
+    db.refresh(current_user)
+    return MfaStatusResponse(totp_enabled=current_user.totp_enabled)
