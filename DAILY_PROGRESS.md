@@ -326,3 +326,21 @@ None yet
 - Tested the MFA flow through Nginx with register, login, setup, invalid verify, valid verify, and `/auth/me`.
 - Pushed the branch and opened a draft PR.
 
+## Date: 2026-05-03
+### Goal for today
+- Finish the Sprint 2 MFA work by adding a disable flow.
+
+### Work completed
+- Created Issue #11 for disabling MFA.
+- Closed duplicate Issue #12.
+- Created the `feature/mfa-disable` branch from `feature/totp-mfa`.
+- Added `POST /api/v1/mfa/disable`.
+- Required bearer token auth and a valid current TOTP code before disabling MFA.
+- Cleared the stored TOTP secret after MFA is disabled.
+- Updated the user MFA status so `totp_enabled` becomes false.
+- Tested the full MFA lifecycle through Nginx with register, login, setup, verify, invalid disable, valid disable, second disable, and `/auth/me`.
+- Pushed the branch and opened a draft PR.
+- Shut down Docker Compose after testing.
+
+### Notes
+- Issue #11 completes the Sprint 2 MFA lifecycle work.
