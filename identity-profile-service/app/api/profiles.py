@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
@@ -20,3 +20,11 @@ def create_profile(profile: ProfileCreate, db: Session = Depends(get_db)):
 @router.get("", response_model=list[ProfileRead])
 def list_profiles(db: Session = Depends(get_db)):
     return db.query(Profile).all()
+
+
+@router.get("/{profile_id}", response_model=ProfileRead)
+def get_profile(profile_id: int, db: Session = Depends(get_db)):
+    profile = db.query(Profile).filter(Profile.id == profile_id).first()
+    if not profile:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profile not found")
+    return profile
