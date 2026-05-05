@@ -365,3 +365,28 @@ None yet
 
 ### Next step
 - Continue Sprint 3 with the next service-to-service workflow issue.
+
+## Date: 2026-05-04
+### Goal for today
+- Continue Sprint 3 by adding profile validation before session creation.
+
+### Work completed
+- Created Issue #16 for validating profiles when creating sessions.
+- Created the `feature/session-profile-validation` branch from `feature/request-id-logging`.
+- Added `GET /api/v1/profiles/{profile_id}` in the Identity & Profile Service.
+- Added a Session Service helper for calling the Identity & Profile Service.
+- Updated session creation to validate requester and mentor profile IDs before saving a session.
+- Forwarded `X-Request-ID` from the Session Service to the Identity & Profile Service during validation.
+- Tested valid session creation through Nginx.
+- Tested missing requester and missing mentor profile errors through Nginx.
+- Checked logs to confirm request ID forwarding between services.
+- Pushed the branch and opened a draft PR.
+
+### Checks completed
+- Confirmed Python files compile.
+- Confirmed Docker Compose config is valid.
+- Confirmed Docker Compose stack builds and starts locally.
+- Tested session profile validation through Nginx.
+
+### Next step
+- Continue Sprint 3 with notification handling for session events.
