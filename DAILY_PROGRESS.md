@@ -390,3 +390,28 @@ None yet
 
 ### Next step
 - Continue Sprint 3 with notification handling for session events.
+
+## Date: 2026-05-06
+### Goal for today
+- Continue Sprint 3 by creating notifications when new session requests are made.
+
+### Work completed
+- Worked on Issue #18 for creating notifications for new session requests.
+- Created the `feature/session-request-notifications` branch from `feature/session-profile-validation`.
+- Added a Notification Service helper in the Session Service.
+- Forwarded `X-Request-ID` from the Session Service to the Notification Service.
+- Updated session creation to create a `session_request` notification after a session is saved.
+- Sent the notification to the mentor profile for the new session request.
+- Tested session creation through Nginx.
+- Tested that the mentor profile receives the new notification through Nginx.
+- Checked logs to confirm request ID forwarding across Session, Identity, and Notification services.
+- Pushed the branch and opened Draft PR #19.
+
+### Checks completed
+- Confirmed Python files compile.
+- Confirmed Docker Compose config is valid.
+- Confirmed Docker Compose stack builds and starts locally.
+- Tested the session-to-notification flow through Nginx.
+
+### Next step
+- Continue Sprint 3 with session status updates or final integration cleanup.
