@@ -17,26 +17,26 @@ SkillSwap is a backend-only microservices project built with:
 - registration, login, refresh token flow, and current user endpoint
 - JWT issuance and centralized authentication
 - TOTP MFA setup, verification, and disable
-- profile creation, updates, and lookup
+- profile creation, list, and lookup
 - role-based access support
 
 ### Session Service
-- create, list, retrieve, and update session requests
+- create and list session requests
 - filter sessions by status
 - validate profiles through the Identity & Profile Service
-- call the Notification Service for major session events
+- call the Notification Service when a new session request is created
 
 ### Notification Service
 - create and list notifications
 - get notifications by profile ID
-- store notification delivery or status results
+- store notification type, status, and message data
 
 ## Auth, MFA, and Request IDs
 - Password hashing, JWT authentication, and role-based authorization are centralized in the Identity & Profile Service.
-- TOTP MFA is required through setup, verify, and disable flows.
+- TOTP MFA is supported through setup, verify, and disable flows.
 - Protected routes across services trust the centralized identity model.
 - Every request must preserve or generate `X-Request-ID` and forward it across downstream service calls.
-- Structured logs should include request ID, method, path, response status, downstream target, and downstream success or failure.
+- Structured logs include request ID, method, path, response status, and request duration.
 
 ## Routes and Gateway
 All external traffic enters through Nginx under `/api/v1/...`.
